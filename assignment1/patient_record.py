@@ -82,13 +82,13 @@ class PatientRecords:
     def next_patient(self):
         print("Next Patient as per queue.")
         temp = self.find_patient(self.patients[0])
-        # if temp is None:
-        #     print("temp None")
-        # else:
-        #     print(str(type(temp)))
-        print("---- next patient ---------------\n"+"Next patient for consultation is: "
-              + temp.pat_id + ", " + temp.name +
-              "\n----------------------------------------------")
+        if temp is None:
+            print("temp None")
+        else:
+            print(str(type(temp)))
+        # print("---- next patient ---------------\n"+"Next patient for consultation is: "
+        #       + temp.pat_id + ", " + temp.name +
+        #       "\n----------------------------------------------")
         return temp
 
     def dequeue_patient(self, pat_id):
@@ -113,7 +113,7 @@ class PatientRecords:
         return int(a[-2:])
 
     def build_heap(self, a, size=-1):
-        # print("build_heap")
+        print("build_heap")
         if size == -1:
             heap_size = len(a)
         else:
@@ -122,10 +122,10 @@ class PatientRecords:
         for i in range(heap_size//2, 0, -1):
             self.heapify(a, i, heap_size)
             # print(a)
-        return a
+        # return a
 
     def heapify(self, a, i, size=-1):
-        # print("heapify")
+        print("heapify")
         max_index = i
         if size == -1:
             heap_size = len(a)

@@ -32,8 +32,9 @@ for i in range(len(patient_records.patients)-1, -1, -1):
 
 output.write("----------------------------------------------")
 # for i in patient_records.get_patients()
+print(patient_records.patients)
 patient_records.build_heap(patient_records.patients)
-
+print(patient_records.patients)
 inputPS5bfile = open("inputPS5b.txt", "r")
 for i in inputPS5bfile:
     removal_list = [' ', '\t', '\n']
@@ -42,23 +43,25 @@ for i in inputPS5bfile:
 
     if i[0:3] == "new":
         key, temp = i.split(":")
-        name, age = (i.split(","))
+        name, age = (temp.split(","))
         patient_records.register_patient(name, age)
         # count += 1
-        output.write("---- new patient entered---------------\n" + "Patient details: "
+        output.write("\n---- new patient entered---------------\n" + "Patient details: "
                 + name + ", " + str(age) + ", " + str(patient_records.num) + str(age) + "\n" + "Refreshed queue: \n")
         patient_records.heap_sort(patient_records.patients)
+        print(patient_records.patients)
         for j in range(len(patient_records.patients)-1, -1, -1):
             temp = patient_records.find_patient(patient_records.patients[j])
             output.write(temp.pat_id + ", " + temp.name + "\n")
         output.write("----------------------------------------------")
-        patient_records.heap_sort(patient_records.patients)
+        print(patient_records.patients)
+        patient_records.build_heap(patient_records.patients)
         print(patient_records.patients)
     elif i[0:3] == "nex":
-        output.write("---- next patient ---------------")
+        output.write("\n---- next patient ---------------")
         temp = patient_records.next_patient()
-        output.write("Next patient for consultation is: " + temp.pat_id + ", " + temp.name)
-        output.write("----------------------------------------------")
+        output.write("\nNext patient for consultation is: " + temp.pat_id + ", " + temp.name)
+        output.write("\n----------------------------------------------")
         patient_records.dequeue_patient(temp.pat_id)
 
 
