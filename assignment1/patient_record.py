@@ -15,9 +15,6 @@ class PatientRecords:
     head = None
     tail = None
 
-    # def __init__(self):
-    #     print("PR ")
-
     def get_patients(self):
         for i in self.patients:
             print(i)
@@ -40,6 +37,22 @@ class PatientRecords:
             temp = temp.right
         return temp
 
+    def delete_patient(self, pat_id):
+        temp = self.tail
+        previous = None
+        while temp.pat_id != pat_id:
+            previous = temp
+            print(temp.name, temp.pat_id)
+            temp = temp.right
+        if temp.right is None:
+            previous.right = None
+            del temp
+        else:
+            previous.right = temp.right
+            temp.right.left = previous
+            del temp
+        # print(self.get_patient_list())
+
     def register_patient(self, name, age):
         print("register_patient")
         if self.head is None:
@@ -57,16 +70,39 @@ class PatientRecords:
         self.enqueue_patient(self.head.pat_id)
 
     def enqueue_patient(self, pat_id):
-        print("Insert "+pat_id+" into max heap.")
+        # print("Insert "+pat_id+" into max heap.")
         self.patients.append(pat_id)
         self.upheap(self.patients)
 
     def next_patient(self):
-        print("Dequeue Patient as per call.")
-        temp = self.find_patient(self.patients[0].pat_id)
-        print('''---- next patient - --------------
-            Next patient for consultation is: '''+temp.pat_id+", " + temp.name+
-            '''----------------------------------------------''')
+        print("Next Patient as per queue.")
+        temp = self.find_patient(self.patients[0])
+        # if temp is None:
+        #     print("temp None")
+        # else:
+        #     print(str(type(temp)))
+        print("---- next patient ---------------\n"+"Next patient for consultation is: "
+              + temp.pat_id + ", " + temp.name +
+              "\n----------------------------------------------")
+        return temp
+
+    def dequeue_patient(self, pat_id):
+        print("Dequeue "+pat_id+" from the queue")
+        heap_size = len(self.patients)
+        index = -1
+        for i in range(0, heap_size):
+            if self.patients[i] == pat_id:
+                index = i
+        if index == -1:
+            print("Patient not in the list.")
+            return
+        self.patients[index], self.patients[heap_size-1] = self.patients[heap_size-1], self.patients[index]
+        temp = self.patients[heap_size-1]
+        # del self.patients[heap_size-1]
+        self.heapify(self.patients, index, heap_size - 1)
+        self.delete_patient(temp)
+        del self.patients[-1]
+        return temp
 
     def get_age(self, a):
         return int(a[-2:])
@@ -76,7 +112,7 @@ class PatientRecords:
         if size == -1:
             heap_size = len(a)
         else:
-            heap_size=size
+            heap_size = size
         # print("Length of a is " + str(heap_size))
         for i in range(heap_size//2, 0, -1):
             self.heapify(a, i, heap_size)
@@ -85,27 +121,24 @@ class PatientRecords:
 
     def heapify(self, a, i, size=-1):
         print("heapify")
-        max = i-1
+        max_index = i
         if size == -1:
             heap_size = len(a)
         else:
             heap_size = size
-        l = 2*i-1
-        r = 2*i
+        # l = 2*i-1
+        # r = 2*i
         l = 2*i + 1
         r = 2*i + 2
-        # if l < heap_size and a[max].age < a[l].age:
-        #    max = l
-        if l < heap_size and self.get_age(a[max]) < self.get_age(a[l]):
-            max = l
+        if l < heap_size and self.get_age(a[max_index]) < self.get_age(a[l]):
+            max_index = l
 
-        # if r < heap_size and a[max].age < a[r].age:
-        #     max = r
-        if r < heap_size and self.get_age(a[max]) < self.get_age(a[r]):
-            max = r
-        if max != i-1:
-            a[i-1], a[max] = a[max], a[i-1]
-            self.heapify(a, max+1, heap_size)
+        if r < heap_size and self.get_age(a[max_index]) < self.get_age(a[r]):
+            max_index = r
+
+        if max_index != i:
+            a[i], a[max_index] = a[max_index], a[i]
+            self.heapify(a, max_index, heap_size)
 
     def upheap(self, a):
         heap_size = len(a)
@@ -126,24 +159,13 @@ class PatientRecords:
             else:
                 return
 
-    def get_top(self, a):
-        heap_size = len(a)
-        print("get_top")
-        # temp = None
-        # a[0], a[heap_size-1] = a[heap_size-1], a[0]
-        temp = a[heap_size-1]
-        # del a[heap_size-1]
-        # self.heapify(a, 1, heap_size - 1)
-        # build_heap(a, heap_size-1)
-        return temp
-
     def heap_sort(self, a):
         print("heap_sort")
         heap_size = len(a)
         self.build_heap(a, heap_size)
         while heap_size > 1:
             a[0], a[heap_size-1] = a[heap_size-1], a[0]
-            self.heapify(a, 1, heap_size-1)
+            self.heapify(a, 0, heap_size-1)
             heap_size -= 1
             # print(a)
 
