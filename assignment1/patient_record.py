@@ -83,7 +83,7 @@ class PatientRecords:
         print("Next Patient as per queue.")
         temp = self.find_patient(self.patients[0])
         if temp is None:
-            print("temp None")
+            print("No Patient in thee queue.")
         else:
             print(str(type(temp)))
         # print("---- next patient ---------------\n"+"Next patient for consultation is: "
@@ -119,7 +119,7 @@ class PatientRecords:
         else:
             heap_size = size
         # print("Length of a is " + str(heap_size))
-        for i in range(heap_size//2, 0, -1):
+        for i in range(heap_size//2, -1, -1):
             self.heapify(a, i, heap_size)
             # print(a)
         # return a
@@ -128,13 +128,18 @@ class PatientRecords:
         print("heapify")
         max_index = i
         if size == -1:
+            # print("default: "+str(len(a)))
             heap_size = len(a)
         else:
+            # print("size: "+str(size))
             heap_size = size
         # l = 2*i-1
         # r = 2*i
         l = 2*i + 1
         r = 2*i + 2
+        # print(a)
+        # print(str(max_index)+" "+str(l)+" "+str(r)+" "+str(heap_size))
+        # print(str(a[max_index])+" "+str(a[l])+" "+str(a[r]))
         if l < heap_size and self.get_age(a[max_index]) < self.get_age(a[l]):
             max_index = l
 
@@ -143,7 +148,9 @@ class PatientRecords:
 
         if max_index != i:
             a[i], a[max_index] = a[max_index], a[i]
+            # print(a)
             self.heapify(a, max_index, heap_size)
+        # print(a)
 
     def upheap(self, a):
         heap_size = len(a)
@@ -165,7 +172,7 @@ class PatientRecords:
                 return
 
     def heap_sort(self, a):
-        # print("heap_sort")
+        print("heap_sort")
         heap_size = len(a)
         self.build_heap(a, heap_size)
         while heap_size > 1:
