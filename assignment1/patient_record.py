@@ -29,10 +29,16 @@ class PatientRecords:
             temp = temp.right
 
     def get_head_patient_list(self):
-            temp = self.head
-            while temp is not None:
-                print(temp.pat_id,": "+temp.name)
-                temp = temp.left
+        temp = self.head
+        while temp is not None:
+            print(temp.pat_id,": "+temp.name)
+            temp = temp.left
+
+    def find_patient(self, pat_id):
+        temp = self.tail
+        while temp.pat_id != pat_id:
+            temp = temp.right
+        return temp
 
     def register_patient(self, name, age):
         print("register_patient")
@@ -45,7 +51,8 @@ class PatientRecords:
             self.head.right = PatientClass(name, age, self.num + 1)
             self.head.right.left = self.head
             self.head = self.head.right
-            # self.patients.append(self.head.pat_id)
+            # self.patients.append(self.head.pat_i
+            # d)
             self.num += 1
         self.enqueue_patient(self.head.pat_id)
 
@@ -54,9 +61,12 @@ class PatientRecords:
         self.patients.append(pat_id)
         self.upheap(self.patients)
 
-    def dequeue_patient(self):
+    def next_patient(self):
         print("Dequeue Patient as per call.")
-
+        temp = self.find_patient(self.patients[0].pat_id)
+        print('''---- next patient - --------------
+            Next patient for consultation is: '''+temp.pat_id+", " + temp.name+
+            '''----------------------------------------------''')
 
     def get_age(self, a):
         return int(a[-2:])
@@ -119,14 +129,13 @@ class PatientRecords:
     def get_top(self, a):
         heap_size = len(a)
         print("get_top")
-        # print(str(heap_size)+" "+str(a[0])+" "+str(a[heap_size-1]))
-        a[0], a[heap_size-1] = a[heap_size-1], a[0]
-        # print(a[heapsize-1])
-        # print(str(heap_size)+" "+str(a[0])+" "+str(a[heap_size-1]))
-        # print(a)
+        # temp = None
+        # a[0], a[heap_size-1] = a[heap_size-1], a[0]
+        temp = a[heap_size-1]
         # del a[heap_size-1]
-        self.heapify(a, 1, heap_size - 1)
+        # self.heapify(a, 1, heap_size - 1)
         # build_heap(a, heap_size-1)
+        return temp
 
     def heap_sort(self, a):
         print("heap_sort")

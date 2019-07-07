@@ -21,6 +21,7 @@ for i in ps5file:
 print(patient_records.patients)
 patient_records.register_patient("Raj", 68)
 print(patient_records.patients)
+patient_records.next_patient()
 # patient_records.build_heap(patient_records.patients)
 # print(patient_records.patients)
 # patient_records.heap_sort(patient_records.patients)
