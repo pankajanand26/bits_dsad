@@ -23,14 +23,12 @@ class PatientRecords:
             print(i)
 
     def get_patient_list(self):
-        # print(self.tail.name)
         temp = self.tail
         while temp is not None:
             print(temp.pat_id,": "+temp.name)
             temp = temp.right
 
     def get_head_patient_list(self):
-            # print(self.tail.name)
             temp = self.head
             while temp is not None:
                 print(temp.pat_id,": "+temp.name)
@@ -42,19 +40,23 @@ class PatientRecords:
             self.head = PatientClass(name, age, self.num+1)
             self.tail = self.head
             self.num += 1
-            self.patients.append(self.head.pat_id)
+            # self.patients.append(self.head.pat_id)
         else:
             self.head.right = PatientClass(name, age, self.num + 1)
             self.head.right.left = self.head
             self.head = self.head.right
-            self.patients.append(self.head.pat_id)
+            # self.patients.append(self.head.pat_id)
             self.num += 1
+        self.enqueue_patient(self.head.pat_id)
 
     def enqueue_patient(self, pat_id):
         print("Insert "+pat_id+" into max heap.")
+        self.patients.append(pat_id)
+        self.upheap(self.patients)
 
-    def dequeue_patient(self, pat_id):
+    def dequeue_patient(self):
         print("Dequeue Patient as per call.")
+
 
     def get_age(self, a):
         return int(a[-2:])
@@ -62,7 +64,7 @@ class PatientRecords:
     def build_heap(self, a, size=-1):
         print("build_heap")
         if size == -1:
-            heap_size=len(a)
+            heap_size = len(a)
         else:
             heap_size=size
         # print("Length of a is " + str(heap_size))
@@ -80,6 +82,8 @@ class PatientRecords:
             heap_size = size
         l = 2*i-1
         r = 2*i
+        l = 2*i + 1
+        r = 2*i + 2
         # if l < heap_size and a[max].age < a[l].age:
         #    max = l
         if l < heap_size and self.get_age(a[max]) < self.get_age(a[l]):
@@ -97,18 +101,18 @@ class PatientRecords:
         heap_size = len(a)
         print("upheap")
         i = heap_size-1
-        print(str(i))
-        parent = i//2
+        if i % 2 == 0:
+            parent = (i-2)//2
+        else:
+            parent = (i-1)//2
         while i > 0:
-            # print(str(a[i].age)+" " +str(a[parent].age))
-            # print(str(type(a[i].age))+" "+str(type(a[parent].age)))
-            # if a[i].age > a[parent-1].age:
-            if self.get_age(a[i]) > self.get_age(a[parent-1]):
-                a[parent-1], a[i] = a[i], a[parent-1]
-                print("Parent:"+str(parent-1)+" Child:"+str(i))
-                i = (i//2)-1
-                parent = (parent//2)
-                print("parent: " + str(parent-1) + " child:"+str(i))
+            if self.get_age(a[i]) > self.get_age(a[parent]):
+                a[parent], a[i] = a[i], a[parent]
+                i = parent
+                if parent % 2 == 0:
+                    parent = (parent-2)//2
+                else:
+                    parent = (parent-1)//2
             else:
                 return
 
