@@ -73,6 +73,11 @@ class PatientRecords:
         # print("Insert "+pat_id+" into max heap.")
         self.patients.append(pat_id)
         self.upheap(self.patients)
+        # temp = self.find_patient(pat_id)
+        # message = "---- new patient entered---------------\n" + "Patient details: "
+        # + temp.name+", " + str(temp.age) + ", " + temp.pat_id+"\n" + "Refreshed queue: "
+        # return message
+
 
     def next_patient(self):
         print("Next Patient as per queue.")
