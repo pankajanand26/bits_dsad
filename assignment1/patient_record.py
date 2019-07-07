@@ -45,7 +45,7 @@ class PatientRecords:
             self.patients.append(self.head.pat_id)
         else:
             self.head.right = PatientClass(name, age, self.num + 1)
-            self.head.left = self.head
+            self.head.right.left = self.head
             self.head = self.head.right
             self.patients.append(self.head.pat_id)
             self.num += 1

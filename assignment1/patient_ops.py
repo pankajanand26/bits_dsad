@@ -1,7 +1,11 @@
 import assignment1.patient_record as pr
+import os.path as path
 
 
 patient_records = pr.PatientRecords()
+
+if not path.exists("output.txt"):
+
 
 ps5file = open("input.txt", 'r')
 for i in ps5file:
@@ -21,11 +25,12 @@ print(patient_records.patients)
 patient_records.build_heap(patient_records.patients)
 print(patient_records.patients)
 # patient_records.get_patient_list()
-# patient_records.heap_sort(patient_records.patients)
-# print(patient_records.patients)
+patient_records.heap_sort(patient_records.patients)
+print(patient_records.patients)
 patient_records.get_top(patient_records.patients)
 print(patient_records.patients)
 print(patient_records.get_head_patient_list())
+print(patient_records.get_patient_list())
 # pr.PatientRecord("",0,0).build_heap(p)
 # for i in p:
 #     print(i.pat_id)
