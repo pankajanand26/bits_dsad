@@ -23,9 +23,14 @@ for i in ps5file:
 
 output.write("---- initial queue ---------------\n"
              + "No of patients added: " + str(count)
-             + "\n Refreshed queue:")
+             + "\nRefreshed queue:\n")
+patient_records.heap_sort(patient_records.patients)
 
+for i in range(len(patient_records.patients)-1, -1, -1):
+    temp = patient_records.find_patient(patient_records.patients[i])
+    output.write(temp.pat_id + ", " + temp.name + "\n")
 
+output.write("----------------------------------------------")
 # for i in patient_records.get_patients()
 
 print(patient_records.patients)

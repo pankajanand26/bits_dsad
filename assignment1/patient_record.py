@@ -108,7 +108,7 @@ class PatientRecords:
         return int(a[-2:])
 
     def build_heap(self, a, size=-1):
-        print("build_heap")
+        # print("build_heap")
         if size == -1:
             heap_size = len(a)
         else:
@@ -120,7 +120,7 @@ class PatientRecords:
         return a
 
     def heapify(self, a, i, size=-1):
-        print("heapify")
+        # print("heapify")
         max_index = i
         if size == -1:
             heap_size = len(a)
@@ -142,7 +142,7 @@ class PatientRecords:
 
     def upheap(self, a):
         heap_size = len(a)
-        print("upheap")
+        # print("upheap")
         i = heap_size-1
         if i % 2 == 0:
             parent = (i-2)//2
@@ -160,7 +160,7 @@ class PatientRecords:
                 return
 
     def heap_sort(self, a):
-        print("heap_sort")
+        # print("heap_sort")
         heap_size = len(a)
         self.build_heap(a, heap_size)
         while heap_size > 1:
