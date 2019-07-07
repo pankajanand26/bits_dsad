@@ -40,6 +40,8 @@ class PatientRecords:
     def delete_patient(self, pat_id):
         temp = self.tail
         previous = None
+        if self.tail is None:
+            return
         while temp.pat_id != pat_id:
             previous = temp
             print(temp.name, temp.pat_id)
@@ -47,6 +49,9 @@ class PatientRecords:
         if temp.right is None:
             previous.right = None
             del temp
+        elif previous is None:
+            self.tail = temp.right
+            self.tail.left = None
         else:
             previous.right = temp.right
             temp.right.left = previous
@@ -106,7 +111,8 @@ class PatientRecords:
         # del self.patients[heap_size-1]
         self.heapify(self.patients, index, heap_size - 1)
         self.delete_patient(temp)
-        del self.patients[-1]
+        if self.patients[-1]:
+            del self.patients[-1]
         return temp
 
     def get_age(self, a):
