@@ -6,10 +6,10 @@ patient_records = pr.PatientRecords()
 
 count = 0
 
-if not path.exists("output.txt"):
-    output = open("output.txt", "w+")
+if not path.exists("outputPS5.txt"):
+    output = open("outputPS5.txt", "w+")
 else:
-    output = open("output.txt", "w+")
+    output = open("outputPS5.txt", "w+")
 
 inputps5afile = open("inputPS5a.txt", 'r')
 for i in inputps5afile:
